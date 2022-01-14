@@ -5,7 +5,7 @@ import { verify, decode } from 'jsonwebtoken'
 import { createLogger } from '../../utils/logger'
 import { Jwt } from '../../auth/Jwt'
 import { JwtPayload } from '../../auth/JwtPayload'
-import { getSigningKey } from '../../helpers/jwksClient'
+import { getSigningKey } from '../../utils/jwksClient'
 
 const logger = createLogger('auth') 
 

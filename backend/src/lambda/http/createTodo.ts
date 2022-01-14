@@ -5,7 +5,7 @@ import { cors, httpErrorHandler } from 'middy/middlewares'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 import { getUserId } from '../utils';
 import { createLogger } from '../../utils/logger'
-import { createTodo } from '../../helpers/todos'
+import { createTodo } from '../../businessLayer/todos'
 
 const logger = createLogger('Todo')
 
@@ -19,10 +19,6 @@ export const handler = middy(
     const todoItem = await createTodo(newTodo, userId)
     return {
       statusCode: 201,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true
-      },
       body: JSON.stringify({item: todoItem})
     }
   })

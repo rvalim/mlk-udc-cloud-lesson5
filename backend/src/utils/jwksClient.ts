@@ -1,8 +1,7 @@
 import Axios from 'axios';
 import { createLogger } from '../utils/logger';
 
-const jwksUrl = 'https://dev-kp18twnv.us.auth0.com/.well-known/jwks.json'
-
+const jwksUrl = process.env.JWKS_URL;
 const logger = createLogger('Todo')
 
 export async function getSigningKey(kid: string) {

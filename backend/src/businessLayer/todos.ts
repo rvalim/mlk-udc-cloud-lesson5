@@ -6,12 +6,18 @@ import { TodoItem } from '../models/TodoItem'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { TodoUpdate } from '../models/TodoUpdate'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
-import { Data } from './todosAcess'
+import { Data } from '../dataLayer/todosAcess'
 
 const data = new Data()
+const bucketName = process.env.ATTACHMENT_S3_BUCKET
 
 export async function getTodos(userId: string): Promise<TodoItem[]> {
-    return await data.getTodos(userId)
+    var items = await data.getTodos(userId)
+    
+    return items.map(p => {
+        p.attachmentUrl = `https://${bucketName}.s3.us-east-1.amazonaws.com/${p.todoId}`
+        return p;
+    })
 }
 
 export async function createTodo(
@@ -51,4 +57,8 @@ export async function updateTodo(
 export async function deleteTodo(userId: string, todoId: string): Promise<String>  {
 
     return data.deleteTodo(userId, todoId)
+}
+
+export async function todoExists(userId: string, todoId: string) {
+    return await data.todoExists(userId, todoId);
 }

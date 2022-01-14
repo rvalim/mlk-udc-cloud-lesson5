@@ -15,7 +15,7 @@ export class Data {
         private readonly docClient: DocumentClient = createDynamoDBClient(),
         private readonly todosTable = process.env.TODOS_TABLE,
     ) {
-        
+
     }
 
     async getTodos(userId: string): Promise<TodoItem[]> {
@@ -78,11 +78,26 @@ export class Data {
                 todoId: todoId
             }
         }).promise()
-        
+
         logger.info("delete successfull")
 
         return ''
 
+    }
+
+    async todoExists(userId: string, todoId: string) {
+
+        const result = await this.docClient
+            .get({
+                TableName: this.todosTable,
+                Key: {
+                    userId: userId,
+                    todoId: todoId
+                }
+            })
+            .promise()
+
+        return !!result.Item
     }
 }
 

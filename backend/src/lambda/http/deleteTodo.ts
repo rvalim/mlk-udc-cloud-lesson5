@@ -3,7 +3,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import * as middy from 'middy'
 import { cors, httpErrorHandler } from 'middy/middlewares'
 import { getUserId } from '../utils'
-import { deleteTodo } from '../../helpers/todos'
+import { deleteTodo } from '../../businessLayer/todos'
 import { createLogger } from '../../utils/logger'
 
 const logger = createLogger('Todo')
@@ -17,10 +17,6 @@ export const handler = middy(
     await deleteTodo(userId, todoId)
     return {
       statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true
-      },
       body: " "
     }
   })

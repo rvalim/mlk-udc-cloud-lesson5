@@ -26,6 +26,7 @@ provider:
     INDEX_NAME: TodoIdIndex
     ATTACHMENT_S3_BUCKET: lim0nes-todo-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
+    JWKS_URL: 'https://dev-kp18twnv.us.auth0.com/.well-known/jwks.json'
 
   logs:
     # Enable API Gateway logs
