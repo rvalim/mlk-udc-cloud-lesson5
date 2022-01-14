@@ -90,6 +90,9 @@ functions:
             description: Create a new todo item
             requestModels:
               'application/json': CreateTodoRequest
+          request:
+            schema:
+              application/json: ${file(models/create-todo-model.json)} # relative to where the serverless.yaml is
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -117,10 +120,13 @@ functions:
           cors: true
           reqValidatorName: RequestBodyValidator
           documentation:
-            summary: Create todo task
-            description: Create a new todo item
+            summary: Update todo task
+            description: Update a new todo item
             requestModels:
               'application/json': UpdateTodoRequest        
+          request:
+            schema:
+              application/json: ${file(models/update-todo-model.json)} # relative to where the serverless.yaml is
     iamRoleStatements:
       - Effect: Allow
         Action:
